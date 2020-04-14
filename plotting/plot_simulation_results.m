@@ -10,16 +10,17 @@ catch
 end
 
 %% Plot all Data
-plotAllData = 1;
+plotAllData = 0;
 
-figure('Name','Plot All Sim Data')
 if plotAllData
+    figure('Name','Plot All Sim Data');
     for i = 1:simOut.logsout.numElements
         subplot(simOut.logsout.numElements,1,i)   
         plot(simOut.logsout{i}.Values);
     end
+    set(gcf,'WindowStyle','docked')
 end
-set(gcf,'WindowStyle','docked')
+
 
 %% Compare desired wrench and wrench
 compareDesiredWrenchAndWrench = 1;
@@ -78,9 +79,12 @@ end
 set(gcf,'WindowStyle','docked')
 
 %% Plot Rotors at Time t
-h = figure()
+plotRotors = 0;
 
-t_start = 18
-t_end = 19
-plotRotorsSimOut(h,simOut,t_start, t_end);
+if plotRotors
+%h = figure()
+    t_start = 0
+    t_end = 1.5
+    plotRotorsSimOut(gcf,simOut,t_start, t_end);
+end
 

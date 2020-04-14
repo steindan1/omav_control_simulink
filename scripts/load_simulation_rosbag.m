@@ -28,5 +28,6 @@ alpha_cmd_rosbag = tiltrotor_actuator_cmd(:,1:7);
 omega_cmd_rosbag = tiltrotor_actuator_cmd(:,[1,8:19]);
 
 %% start simulation
-simOut = sim('omav_no_scale');
+%simOut = sim('omav_allocation');
+simOut = sim('omav_B_matrix');
 disp('Simulation complete, results in workspace')

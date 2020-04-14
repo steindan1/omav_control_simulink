@@ -1,0 +1,20 @@
+%% clear
+clear all
+clc
+
+%% load parameters
+params = parameters();
+
+%% load simulation input and reference
+%1000 simu
+n = 1000;
+
+for i = 1:size(acc_des,1)
+    wrench_des(i,2:7) = accel_to_wrench(acc_des(i,2:7))';
+end
+
+
+%% start simulation
+%simOut = sim('omav_allocation');
+simOut = sim('omav_B_matrix');
+disp('Simulation complete, results in workspace')

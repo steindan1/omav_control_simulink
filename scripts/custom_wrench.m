@@ -1,14 +1,12 @@
 clc
+clear all
 
 params = parameters();
 
-alphas = [-0.6478 -0.9869 -0.6478 0.6478 0.9869 0.6478];
+%h1 = figure();
 
-h1 = figure();
-%h2 = figure();
-
-for t=0:0.05:pi
-    wrench = [30 10*sin(t) -9.81*params.mass 0 0 0]';
+for t=0:0.05:pi 
+    wrench = [sin(t)*10 0 -9.81*params.mass 0 0 0]';
     
     A = get_A();
     
@@ -24,8 +22,9 @@ for t=0:0.05:pi
     
     wrench_out = B*omegas_sq;
 
-    plotRotors(h1,alphas,omegas);
-    %plotForceTracking(h2,wrench_out,wrench,1);
+    %plotDominantForce(gcf,alphas,omegas,B);
+    %plotRotors(gcf,alphas,omegas);
+    plotForceTracking(gcf,wrench_out,wrench,1);
     
     pause(0.01)
 end

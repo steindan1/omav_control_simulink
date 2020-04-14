@@ -55,7 +55,7 @@ title(title_str);
 hold off
 
 %Lighting
-%light('Position',[-1 1 0],'Style','local')
+light('Position',[-1 0 0])
 
 subplot(2,1,2)
 window_dim = 20;
@@ -83,5 +83,7 @@ mArrow3([0 0 0],wrench_des_plot(4:6)','stemWidth',arrow_thickness,'tipWidth',tip
 mArrow3([0 0 0],wrench_out_plot(4:6)','stemWidth',arrow_thickness,'tipWidth',tip_thickness,'color','r');
 title('Wrench Torque Tracking [Nm]')
 hold off
+
+light('Position',[-1 0 0])
 end
 

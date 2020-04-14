@@ -36,11 +36,11 @@ for i = 1:6
         0                       0                     1             0;
         0                       0                     0             1];
     
-    R_r_1 = [0 ; omegas(2*i-1)*sin(alphas(i)); omegas(2*i-1)*cos(alphas(i)); 1];
-    R_r_2 = [0 ; omegas(2*i)*sin(alphas(i)); omegas(2*i)*cos(alphas(i)); 1];
+    R_r_1 = [0 ; omegas(2*i-1)*sin(alphas(i)); -omegas(2*i-1)*cos(alphas(i)); 1];
+    R_r_2 = [0 ; omegas(2*i)*sin(alphas(i)); -omegas(2*i)*cos(alphas(i)); 1];
     
-    R_r_alpha = [0;sin(alphas(i));cos(alphas(i));1];
-    R_r_unit = [0;omega_scale*sin(alphas(i));omega_scale*cos(alphas(i));1];
+    R_r_alpha = [0;sin(alphas(i));-cos(alphas(i));1];
+    R_r_unit = [0;omega_scale*sin(alphas(i));-omega_scale*cos(alphas(i));1];
     
     I_r_IR = IR_T(:,4);
     
@@ -55,6 +55,7 @@ for i = 1:6
     plotCircle3D(I_r_IR(1:3)',circle_normal,0.1,'k');
     mArrow3(I_r_IR(1:3),I_r_01(1:3),'stemWidth',0.005,'tipWidth',0.015,'color','b');
     mArrow3(I_r_IR(1:3),I_r_02(1:3),'stemWidth',0.005,'tipWidth',0.015,'color','r');
+    mArrow3(I_r_IR(1:3),I_r_unit(1:3),'stemWidth',0.001,'tipWidth',0,'color','k');
     mArrow3(I_r_IR(1:3),I_r_unit(1:3),'stemWidth',0.001,'tipWidth',0,'color','k');
     
 end

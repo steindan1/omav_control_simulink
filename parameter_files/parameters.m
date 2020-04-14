@@ -14,7 +14,10 @@ params.inertia = diag([0.078359127 0.081797886 0.1533554115]); %inertia
 params.mass = 4.04; %mass
 params.gravity = 9.81; %gravity
 params.rotor_max = 1700.0; %Max angular velocity of rotor [rad/s]^2
-params.servo_max = 8.0; %Maximum rate at which the servos will be commanded to turn (rads per second)
+
+%Maximum rate at which the servos will be commanded to turn (rads per second)
+%physical limit: 8.0 rad/s
+params.servo_max = 1; 
 
 % arm angles [rad]
 % assuming z-axis pointing downwards

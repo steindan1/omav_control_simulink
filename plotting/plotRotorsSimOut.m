@@ -14,7 +14,7 @@ function [] = plotRotorsSimOut(h,simOut,t_start,t_end)
         omega_t = simOut.logsout.getElement('omega').Values.Data(t_idx,:);
 
         plotRotors(h,alpha_t,omega_t)
-        plotRotors(h,alpha_t,omega_t)
+        %plotRotors(h,alpha_t,omega_t)
         
         pause(0.01)
     end
