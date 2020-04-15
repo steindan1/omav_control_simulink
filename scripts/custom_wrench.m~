@@ -3,15 +3,12 @@ clear all
 
 
 params = parameters();
-
 %%
 close all
 h1 = figure();
-%%
 
 wrench = [10 0 -9.81*params.mass 0 0 0 ]';
-%%
-wrench = [-10 0 -9.81*params.mass 0 0 0 ]';
+-9.81*params.mass
 
 
 %%
