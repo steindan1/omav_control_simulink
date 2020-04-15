@@ -59,4 +59,5 @@ for i = 1:6
     mArrow3(I_r_IR(1:3),I_r_unit(1:3),'stemWidth',0.001,'tipWidth',0,'color','k');
     
 end
+light('Position',[-1 0 0])
 hold off
