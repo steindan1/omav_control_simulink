@@ -4,7 +4,7 @@ clear all; clear classes; close all; clc;
 
 %% Create a class instance
 
-h = IRB120Visualization;
+h = OMAVVisualization;
 
 %% Save to MAT File
 
@@ -14,7 +14,7 @@ fpath = mfilename('fullpath');
 dpath = strrep(fpath, fname, '');
 
 % Store generated model in the appropriate directory
-save(strcat(dpath,'IRB120Model'), 'h');
+save(strcat(dpath,'OMAVModel'), 'h');
 
 % Cleanup
 close all; clear all; clear classes; clc;

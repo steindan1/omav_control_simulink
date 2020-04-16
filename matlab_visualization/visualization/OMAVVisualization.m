@@ -14,9 +14,9 @@
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-% CLASSDEF obj = IRB120Visualization()
+% CLASSDEF obj = OMAVVisualization()
 %
-% -> generates a visualization of the IRB120 consisting of base and 6 moving
+% -> generates a visualization of the OMAV consisting of base and 6 moving
 % links
 %
 % obj.load(), obj.load(fig_handle)
@@ -27,7 +27,9 @@
 % -> updates the structure to the new joint angles
 %
 
-classdef IRB120Visualization < handle
+% Modified by Daniel Steinmann to be used with a hexacopter
+
+classdef OMAVVisualization < handle
 
     properties
 
@@ -51,7 +53,7 @@ classdef IRB120Visualization < handle
 
     methods
 
-        function obj = IRB120Visualization()
+        function obj = OMAVVisualization()
 
             mat.FaceColor = [210,112,16]/255;
             mat.EdgeColor = 'none';
@@ -94,7 +96,7 @@ classdef IRB120Visualization < handle
         function [] = load(obj,scale,fontsize,Iorigin)
 
             % Create figure window and axes
-            obj.vizFig_ = figure('Name','3D visualization IRB120','Position',[100 100 800 600],'NumberTitle', 'off');
+            obj.vizFig_ = figure('Name','3D visualization OMAV','Position',[100 100 800 600],'NumberTitle', 'off');
             obj.vizAx_ = axes('parent', obj.vizFig_);
             set(obj.vizFig_,'Color',[1 1 1])
             set(obj.vizAx_,'Color',[1 1 1])
@@ -125,7 +127,7 @@ classdef IRB120Visualization < handle
             end
             
             %set base coordinate frame
-            obj.frames_{1} = gencsframe(obj.vizAx_, num2str(1-1), scale, fontsize);
+            obj.frames_{1} = gencsframe(obj.vizAx_, 'B', scale, fontsize);
             for j=1:numel(obj.frames_{1})
                 set(obj.frames_{1}{j}, 'parent', obj.tfs_{1});
             end
@@ -142,22 +144,22 @@ classdef IRB120Visualization < handle
             
             % Create rotorMax Vectors
             for i=1:6
-                obj.rotorMaxVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 0.5, 'black');
+                obj.rotorMaxVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 0.5, 0.1, 'black');
                   set(obj.rotorMaxVecs_{i}{1}, 'parent', obj.tfs_{i+1});
-                  set(obj.rotorMaxVecs_{i}{1}, 'WData', 0.2);
+                  set(obj.rotorMaxVecs_{i}{1}, 'WData', scale);
             end
             
             tfidx = [1 1 2 2 3 3 4 4 5 5 6 6];
             for i=1:12
                 %uneven (top) rotors
-                if mod(1,2) ~= 0
-                    obj.omegaVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 5, 'blue');
+                if mod(i,2) ~= 0
+                    obj.omegaVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 5, 0.6, 'blue');
                       set(obj.omegaVecs_{i}{1}, 'parent', obj.tfs_{tfidx(i)+1});
-                      set(obj.omegaVecs_{i}{1}, 'WData', 0.1);
+                      set(obj.omegaVecs_{i}{1}, 'WData', scale);
                 else %even (bottom) rotors
-                    obj.omegaVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 5, 'red');
+                    obj.omegaVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 5, 0.6, 'red');
                       set(obj.omegaVecs_{i}{1}, 'parent', obj.tfs_{tfidx(i)+1});
-                      set(obj.omegaVecs_{i}{1}, 'WData', 0.1);
+                      set(obj.omegaVecs_{i}{1}, 'WData', scale);
                 end
             end
               
@@ -173,7 +175,7 @@ classdef IRB120Visualization < handle
             set(obj.tfs_{8}, 'matrix', TI);
 
             % Initialize joint position
-            obj.setJointPositions(zeros(6,1),zeros(3,1),eye(3,3),zeros(12,0));
+            obj.setJointPositions(zeros(6,1),zeros(3,1),eye(3,3),1700*ones(12,1));
             
 
             
@@ -234,9 +236,9 @@ classdef IRB120Visualization < handle
             % set omegas
             omega_scale = 1/1700;
             for i=1:12
-                set(obj.omegaVecs_{i}{1}, 'WData', 0.1);
+                omega = omegas(i);
+                set(obj.omegaVecs_{i}{1}, 'WData', 0.2*omega*omega_scale);
             end
-            
 
             % Update figure/axes data
             drawnow;

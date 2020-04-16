@@ -1,7 +1,7 @@
 %% Load the visualization MAT file
 
 % Load visualization files.
-load IRB120Model.mat
+load OMAVModel.mat
 abbRobot = h; clear h;
 abbRobot.load(0.2, 16, [0.0;0.0;0]);
 
