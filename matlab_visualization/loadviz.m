@@ -2,8 +2,8 @@
 
 % Load visualization files.
 load OMAVModel.mat
-abbRobot = h; clear h;
-abbRobot.load(0.2, 16, [0.0;0.0;0]);
+OMAV = h; clear h;
+OMAV.load(0.2, 16, [0.0;0.0;0]);
 
 %% Configure the visualization
 

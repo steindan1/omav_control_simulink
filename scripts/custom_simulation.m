@@ -42,5 +42,5 @@ end
 
 %%
 for i = 1:size(time,1)
-    plotRotors(h1,alpha_l(i,2:7),omega_l(i,2:13));
+    plotRotors(gcf,alpha_l(i,2:7),omega_l(i,2:13));
 end

@@ -78,13 +78,42 @@ if plotAlphasAndOmegas
 end
 set(gcf,'WindowStyle','docked')
 
-%% Plot Rotors at Time t
-plotRotors = 0;
+%% Visualize
+plotRotors = 1;
+ts = 0.1;
+t_start = 16;
+t_end = 50;
 
 if plotRotors
-%h = figure()
-    t_start = 0
-    t_end = 1.5
-    plotRotorsSimOut(gcf,simOut,t_start, t_end);
+    time = simOut.logsout.getElement('alpha').Values.time;
+    t_idx_list = find(time > t_start & time < t_end);
+    
+    %only take every 10th point
+    t_idx_list = t_idx_list(1:10:end)
+    
+    % Clear exisint figures
+    close all;
+
+    % Run the loading script
+    loadviz;
+    
+    for i = 1:size(t_idx_list,1)
+        startLoop = tic;
+        
+        t_idx = t_idx_list(i);
+        alpha_t = simOut.logsout.getElement('alpha').Values.Data(t_idx,:);
+        omega_t = simOut.logsout.getElement('omega').Values.Data(t_idx,:);
+        p = [0 0 0];
+        R = eye(3);
+        OMAV.setJointPositions(alpha_t, p, R, omega_t);
+        % Update the visualization figure
+        drawnow;
+        % If enough time is left, wait to try to keep the update frequency
+        % stable
+        residualWaitTime = ts - toc(startLoop);
+        if (residualWaitTime > 0)
+            pause(residualWaitTime);
+        end
+    end
 end
 
