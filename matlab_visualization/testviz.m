@@ -52,7 +52,7 @@ for k=1:kf
         
         
         % Set the generalized coordinates to the robot visualizer class
-        abbRobot.setJointPositions(alpha, p, R, omegas);
+        OMAV.setJointPositions(alpha, p, R, omegas);
         % Update the visualization figure
         drawnow;
         % If enough time is left, wait to try to keep the update frequency

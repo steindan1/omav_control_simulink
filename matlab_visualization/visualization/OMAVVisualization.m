@@ -98,12 +98,12 @@ classdef OMAVVisualization < handle
             % Create figure window and axes
             obj.vizFig_ = figure('Name','3D visualization OMAV','Position',[100 100 800 600],'NumberTitle', 'off');
             obj.vizAx_ = axes('parent', obj.vizFig_);
-            set(obj.vizFig_,'Color',[1 1 1])
-            set(obj.vizAx_,'Color',[1 1 1])
-            axis(obj.vizAx_, 'equal');
-            axis(obj.vizAx_, 'vis3d');
-            axis(obj.vizAx_, 'off');
-            axis(obj.vizAx_, 'auto');
+             set(obj.vizFig_,'Color',[1 1 1])
+             set(obj.vizAx_,'Color',[1 1 1])
+             axis(obj.vizAx_, 'equal');
+             axis(obj.vizAx_, 'vis3d');
+             axis(obj.vizAx_, 'off');
+             axis(obj.vizAx_, 'auto');
 
             % Fix view range
             viewscale = 0.4;
@@ -153,13 +153,11 @@ classdef OMAVVisualization < handle
             for i=1:12
                 %uneven (top) rotors
                 if mod(i,2) ~= 0
-                    obj.omegaVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 5, 0.6, 'blue');
+                    obj.omegaVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 2, 0.6, 'blue');
                       set(obj.omegaVecs_{i}{1}, 'parent', obj.tfs_{tfidx(i)+1});
-                      set(obj.omegaVecs_{i}{1}, 'WData', scale);
                 else %even (bottom) rotors
-                    obj.omegaVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 5, 0.6, 'red');
+                    obj.omegaVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 2, 0.6, 'red');
                       set(obj.omegaVecs_{i}{1}, 'parent', obj.tfs_{tfidx(i)+1});
-                      set(obj.omegaVecs_{i}{1}, 'WData', scale);
                 end
             end
               
@@ -175,7 +173,7 @@ classdef OMAVVisualization < handle
             set(obj.tfs_{8}, 'matrix', TI);
 
             % Initialize joint position
-            obj.setJointPositions(zeros(6,1),zeros(3,1),eye(3,3),1700*ones(12,1));
+            obj.setJointPositions(zeros(6,1),zeros(3,1),eye(3,3),zeros(12,1));
             
 
             
