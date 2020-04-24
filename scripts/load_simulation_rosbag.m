@@ -3,7 +3,7 @@ clear all
 clc
 
 %% load parameters
-params = parameters();
+params = OMAVparameters();
 
 %% load simulation input and reference
 %load acc

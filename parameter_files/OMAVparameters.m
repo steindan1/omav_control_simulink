@@ -1,4 +1,4 @@
-function params = parameters()
+function params = OMAVparameters()
 %loads all parameters
 
 % F = rotor_force_constant * omega^2

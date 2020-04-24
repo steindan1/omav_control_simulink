@@ -1,7 +1,7 @@
 function A = get_A()
 %[F, tau] = A * [sin(alpha)*omega², cos(alpha)*omega²]
 
-params = parameters();
+params = OMAVparameters();
 
 rotor_force_constant = params.rotor_force_constant;
 rotor_moment_constant = params.rotor_moment_constant;

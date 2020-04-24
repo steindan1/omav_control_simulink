@@ -1,5 +1,7 @@
 clf
-params = parameters()
+addpath('parameter_files');
+addpath('get_functions');
+params = OMAVparameters()
 
 hold on
 for k = [pi/6]

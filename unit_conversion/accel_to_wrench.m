@@ -1,7 +1,7 @@
 function wrench = accel_to_wrench(accel)
 
 accel = accel(:);
-params = parameters();
+params = OMAVparameters();
 
 wrench = zeros(6,1);
 

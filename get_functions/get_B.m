@@ -2,7 +2,7 @@ function B = get_B(tilt_angles)
 %tilt_angles [6x1]
 %[F, tau] = B * [omega²]
 
-params = parameters();
+params = OMAVparameters();
 
 rotor_force_constant = params.rotor_force_constant;
 rotor_moment_constant = params.rotor_moment_constant;

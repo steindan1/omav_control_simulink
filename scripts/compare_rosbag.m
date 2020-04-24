@@ -36,7 +36,7 @@ title('Data - Rotor Speed Commands')
 
 %% Convert Accelerations to Forces
 
-params = parameters();
+params = OMAVparameters();
 
 wrench_des = zeros(size(acc_des));
 for i = 1:size(acc_des,1)

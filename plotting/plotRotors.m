@@ -1,11 +1,10 @@
 function plotRotors(fig_handle,alphas,omegas)
 
-params = parameters();
+params = OMAVparameters();
 omega_scale = 0.3;
 
 omegas = omega_scale*(omegas/params.rotor_max);
 
-params = parameters();
 arm_angles = params.arm_angles();
 arm_length = params.arm_length();
 

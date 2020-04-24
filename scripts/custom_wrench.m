@@ -2,7 +2,7 @@ clc
 clear all
 
 
-params = parameters();
+params = OMAVparameters();
 
 %%
 close all

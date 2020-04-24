@@ -2,7 +2,7 @@ function omega_sq = get_omegasq(B,wrench_b)
 %GET_OMEGASQ Summary of this function goes here
 %   Detailed explanation goes here
 
-params = parameters();
+params = OMAVparameters();
 omega_sq = pinv(B)*wrench_b;
 
 for i = 1:12

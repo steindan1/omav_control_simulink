@@ -1,7 +1,7 @@
 %%
 clear,clc
 %%
-params = parameters();
+params = OMAVparameters();
 [tout,] = sim('hexacopter_omav');
 
 N = size(tout,1);

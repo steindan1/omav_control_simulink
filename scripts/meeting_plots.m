@@ -1,7 +1,7 @@
 clc
 clear all
 
-params = parameters();
+params = OMAVparameters();
 %%
 wrench = [10 0 -9.81*params.mass 0 0 0]'
 %%

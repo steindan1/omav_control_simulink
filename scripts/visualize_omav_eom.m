@@ -1,7 +1,7 @@
 %%
 %%clear,clc
 %%
-params = parameters();
+params = OMAVparameters();
 simOut = sim('omav_LBF_freeze');
 
 logsout = simOut.logsout;
