@@ -42,22 +42,38 @@ params.spin = [1 -1 -1 1 1 -1 -1 1 1 -1 -1 1];
 
 %%%%%%%%%%% A - Allocation %%%%%%%%%%%%%
 %Attitude
-params.A_attitude_Kp = 0.1*[6; 6; 6]; %Kp attitude controller
-params.A_attitude_Kd = 0.1*[1; 1; 1]; %Kd attitude controller
+params.A_attitude_Kp = 0.1*[10; 10; 10]; %Kp attitude controller
+params.A_attitude_Kd = 0.1*[6; 6; 6]; %Kd attitude controller
 
 %Position
 params.A_position_Kp = 0.1*[90; 90; 90]; %Kp position controller
 params.A_position_Kd = 0.1*[25; 25; 25]; %Kd position controller
 
+%%%%%%%%%% Bisection Search %%%%%%%%%%%%%
+params.R_s_omega_max = 1400;
+params.R_s_omega_min = 600;
+params.R_s_tol = 1e-5;
+params.R_s_delta_tol = 0.01;
+params.R_s_max_iter = 20;
+
+
+params.f_omega_max = 1400;
+params.f_omega_min = 600;
+params.f_tol = 1e-5;
+params.f_delta_tol = 0.01;
+params.f_max_iter = 20;
+
 %%%%%%%%%%% B - Allocation %%%%%%%%%%%%%
 %Attitude
-params.B_attitude_Kp = 40*[5; 5; 5]; %Kp attitude controller
-params.B_attitude_Kd = 20*[1; 1; 1]; %Kd attitude controller
+params.B_attitude_Kp = 40*[5; 5; 1]; %Kp attitude controller
+params.B_attitude_Kd = 4*[5; 5; 5]; %Kd attitude controller
 
 %Position
 params.B_position_Kp = 3*[5; 5; 5]; %Kp position controller
 params.B_position_Kd = 3*[2; 2; 2]; %Kd position controller
 
+%Force Cone Gain
+params.cone_gain = 0.5;
 
 %%%%%%%%%%% SIMULATION %%%%%%%%%%%%%%%%%%
 params.sampling_time = 0.01;

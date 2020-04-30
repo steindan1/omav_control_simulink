@@ -101,9 +101,9 @@ classdef OMAVVisualization < handle
              set(obj.vizFig_,'Color',[1 1 1])
              set(obj.vizAx_,'Color',[1 1 1])
              axis(obj.vizAx_, 'equal');
-             axis(obj.vizAx_, 'vis3d');
-             axis(obj.vizAx_, 'off');
-             axis(obj.vizAx_, 'auto');
+             %axis(obj.vizAx_, 'vis3d');
+             %axis(obj.vizAx_, 'off');
+             %axis(obj.vizAx_, 'auto');
 
             % Fix view range
             viewscale = 0.4;
@@ -131,6 +131,14 @@ classdef OMAVVisualization < handle
             for j=1:numel(obj.frames_{1})
                 set(obj.frames_{1}{j}, 'parent', obj.tfs_{1});
             end
+            
+            %set desired coordinate frame
+%             obj.tfs_{9} = hgtransform('Parent', obj.vizAx_);
+%             
+%             obj.frames_{9} = gencsframe(obj.vizAx_, 'D', scale, fontsize);
+%             for j=1:numel(obj.frames_{9})
+%                 set(obj.frames_{9}{j}, 'parent', obj.tfs_{9});
+%             end
                 
             %attach coordinate frames   
 %             for i=2:NB
@@ -143,23 +151,23 @@ classdef OMAVVisualization < handle
           
             
             % Create rotorMax Vectors
-            for i=1:6
-                obj.rotorMaxVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 0.5, 0.1, 'black');
-                  set(obj.rotorMaxVecs_{i}{1}, 'parent', obj.tfs_{i+1});
-                  set(obj.rotorMaxVecs_{i}{1}, 'WData', scale);
-            end
+%             for i=1:6
+%                 obj.rotorMaxVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 0.5, 0.1, 'black');
+%                   set(obj.rotorMaxVecs_{i}{1}, 'parent', obj.tfs_{i+1});
+%                   set(obj.rotorMaxVecs_{i}{1}, 'WData', scale);
+%             end
             
-            tfidx = [1 1 2 2 3 3 4 4 5 5 6 6];
-            for i=1:12
-                %uneven (top) rotors
-                if mod(i,2) ~= 0
-                    obj.omegaVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 2, 0.6, 'blue');
-                      set(obj.omegaVecs_{i}{1}, 'parent', obj.tfs_{tfidx(i)+1});
-                else %even (bottom) rotors
-                    obj.omegaVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 2, 0.6, 'red');
-                      set(obj.omegaVecs_{i}{1}, 'parent', obj.tfs_{tfidx(i)+1});
-                end
-            end
+%            tfidx = [1 1 2 2 3 3 4 4 5 5 6 6];
+%             for i=1:12
+%                 %uneven (top) rotors
+%                 if mod(i,2) ~= 0
+%                     obj.omegaVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 2, 0.6, 'blue');
+%                       set(obj.omegaVecs_{i}{1}, 'parent', obj.tfs_{tfidx(i)+1});
+%                 else %even (bottom) rotors
+%                     obj.omegaVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 2, 0.6, 'red');
+%                       set(obj.omegaVecs_{i}{1}, 'parent', obj.tfs_{tfidx(i)+1});
+%                 end
+%             end
               
             
             % Initialize Inertial frame
@@ -171,16 +179,16 @@ classdef OMAVVisualization < handle
             obj.Iorigin_ = Iorigin(:);
             TI = eye(4); TI(1:3,4) = obj.Iorigin_;
             set(obj.tfs_{8}, 'matrix', TI);
-
+            
             % Initialize joint position
-            obj.setJointPositions(zeros(6,1),zeros(3,1),eye(3,3),zeros(12,1));
+            obj.setJointPositions(zeros(6,1),zeros(3,1),eye(3,3),eye(3,3),zeros(12,1));
             
 
             
 
         end
 
-        function [] = setJointPositions(obj, q, p, R, omegas)
+        function [] = setJointPositions(obj, q, p, R, R_d, omegas)
             %R: Base orientation
             %q: tilt angles
             %p: base position in inertial frame
@@ -232,11 +240,17 @@ classdef OMAVVisualization < handle
             set(obj.tfs_{7}, 'matrix', btf6);
             
             % set omegas
-            omega_scale = 1/1700;
-            for i=1:12
-                omega = omegas(i);
-                set(obj.omegaVecs_{i}{1}, 'WData', 0.2*omega*omega_scale);
-            end
+%             omega_scale = 1/1700;
+%             for i=1:12
+%                 omega = omegas(i);
+%                 set(obj.omegaVecs_{i}{1}, 'WData', 0.2*omega*omega_scale);
+%             end
+
+            % set desired orientation
+%             btf9 = eye(4);
+%             btf9(1:3,1:3) = R_d;
+%             btf9(1:3,4) = p;
+%             set(obj.tfs_{9}, 'matrix', btf9);
 
             % Update figure/axes data
             drawnow;

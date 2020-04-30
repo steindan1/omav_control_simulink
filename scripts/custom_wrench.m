@@ -9,7 +9,7 @@ close all
 h1 = figure();
 %%
 
-wrench = [-10 0 9.81*params.mass 0 0 0 ]';
+wrench = [9.81*params.mass 9.81*params.mass 0 0 0 0 ]';
 %%
 wrench = [10 10 9.81*params.mass 0 0 0 ]';
 
