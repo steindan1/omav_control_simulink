@@ -172,10 +172,10 @@ classdef OMAVVisualization < handle
             
             % Initialize Inertial frame
             obj.tfs_{8} = hgtransform('Parent', obj.vizAx_);
-            obj.frames_{8} = gencsframe(obj.vizAx_, 'I', scale, fontsize);
-            for j=1:numel(obj.frames_{8})
-              set(obj.frames_{8}{j}, 'parent', obj.tfs_{8});
-            end
+%             obj.frames_{8} = gencsframe(obj.vizAx_, 'I', scale, fontsize);
+%             for j=1:numel(obj.frames_{8})
+%               set(obj.frames_{8}{j}, 'parent', obj.tfs_{8});
+%             end
             obj.Iorigin_ = Iorigin(:);
             TI = eye(4); TI(1:3,4) = obj.Iorigin_;
             set(obj.tfs_{8}, 'matrix', TI);

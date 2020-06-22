@@ -14,7 +14,7 @@ for k = [pi/3]
         F_l(i,:) = (B*u)';
     end
 
-    %append zero force
+    %append zero torque
     F_l = [F_l;[0 0 0]];
 
     [k1, av1] = convhull(F_l);
