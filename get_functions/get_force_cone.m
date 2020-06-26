@@ -1,31 +1,31 @@
-function [] = get_moment_cone(alpha,scale,R,params)
+function [] = get_force_cone(alpha,scale,R,params)
     %params = parameters();
     B = get_B(alpha,params);
     %rotate plot
-    B = R*B(4:6,:);
+    B = R*B(1:3,:);
     N = 100000;
 
-    M_l = zeros(N,3);
+    F_l = zeros(N,3);
     for i = 1:N
         u = (params.rotor_max*rand(12,1)).^2;
-        M_l(i,:) = (B*u)';
+        F_l(i,:) = (B*u)';
     end
 
     %append zero force
-    M_l = [[0 0 0];M_l];
+    F_l = [F_l;[0 0 0]];
 
-    [k1, av1] = convhull(M_l);
+    [k1, av1] = convhull(F_l);
     
     
 
-    s = trisurf(k1,scale*M_l(:,1),scale*M_l(:,2),scale*M_l(:,3),'FaceColor','g','LineStyle','none','FaceAlpha',0.7);
+    s = trisurf(k1,scale*F_l(:,1),scale*F_l(:,2),scale*F_l(:,3),'FaceColor','y','LineStyle','none','FaceAlpha',0.7);
     set(s,'FaceLighting','gouraud');
     
     % Plot main direction
-    main_m = sum(B,2);
-    main_m_scale = 20/norm(main_m);
+    %main_f = sum(B,2);
+    %main_f_scale = 120/norm(main_f);
 
-    %mArrow3([0 0 0],scale*main_m_scale*main_m,'FaceColor','k');
+    %mArrow3([0 0 0],scale*main_f_scale*main_f,'FaceColor','k');
     
     grid on
     axis equal

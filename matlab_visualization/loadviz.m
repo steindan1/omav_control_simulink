@@ -1,9 +1,9 @@
 %% Load the visualization MAT file
-
 % Load visualization files.
 load OMAVModel.mat
 OMAV = h; clear h;
-OMAV.load(0.2, 16, [0.0;0.0;0]);
+%takes show_omegas from workspce
+OMAV.load(0.2, 16, [0.0;0.0;0],show_omegas);
 
 %% Configure the visualization
 

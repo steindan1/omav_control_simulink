@@ -32,7 +32,10 @@
 classdef OMAVVisualization < handle
 
     properties
-
+        
+        %switches
+        showOmegaVecs_
+        
         % Figure and Axes
         vizFig_
         vizAx_
@@ -93,8 +96,11 @@ classdef OMAVVisualization < handle
             end
         end
 
-        function [] = load(obj,scale,fontsize,Iorigin)
+        function [] = load(obj,scale,fontsize,Iorigin,show_omegas)
 
+            %initialized switches
+            obj.showOmegaVecs_ = show_omegas;
+            
             % Create figure window and axes
             obj.vizFig_ = figure('Name','3D visualization OMAV','Position',[100 100 800 600],'NumberTitle', 'off');
             obj.vizAx_ = axes('parent', obj.vizFig_);
@@ -149,25 +155,26 @@ classdef OMAVVisualization < handle
 %             end
 
           
+            if obj.showOmegaVecs_ == 1
+                %Create rotorMax Vectors
+                for i=1:6
+                    obj.rotorMaxVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 0.5, 0.1, 'black');
+                      set(obj.rotorMaxVecs_{i}{1}, 'parent', obj.tfs_{i+1});
+                      set(obj.rotorMaxVecs_{i}{1}, 'WData', scale);
+                end
             
-            % Create rotorMax Vectors
-%             for i=1:6
-%                 obj.rotorMaxVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 0.5, 0.1, 'black');
-%                   set(obj.rotorMaxVecs_{i}{1}, 'parent', obj.tfs_{i+1});
-%                   set(obj.rotorMaxVecs_{i}{1}, 'WData', scale);
-%             end
-            
-%            tfidx = [1 1 2 2 3 3 4 4 5 5 6 6];
-%             for i=1:12
-%                 %uneven (top) rotors
-%                 if mod(i,2) ~= 0
-%                     obj.omegaVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 2, 0.6, 'blue');
-%                       set(obj.omegaVecs_{i}{1}, 'parent', obj.tfs_{tfidx(i)+1});
-%                 else %even (bottom) rotors
-%                     obj.omegaVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 2, 0.6, 'red');
-%                       set(obj.omegaVecs_{i}{1}, 'parent', obj.tfs_{tfidx(i)+1});
-%                 end
-%             end
+               tfidx = [1 1 2 2 3 3 4 4 5 5 6 6];
+                for i=1:12
+                    %uneven (top) rotors
+                    if mod(i,2) ~= 0
+                        obj.omegaVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 2, 0.6, 'blue');
+                          set(obj.omegaVecs_{i}{1}, 'parent', obj.tfs_{tfidx(i)+1});
+                    else %even (bottom) rotors
+                        obj.omegaVecs_{i} = genomegavec(obj.vizAx_, 'omega', 12, 2, 0.6, 'red');
+                          set(obj.omegaVecs_{i}{1}, 'parent', obj.tfs_{tfidx(i)+1});
+                    end
+                end
+            end
               
             
             % Initialize Inertial frame
@@ -239,12 +246,14 @@ classdef OMAVVisualization < handle
             btf6 = btf*jointTf06(q);
             set(obj.tfs_{7}, 'matrix', btf6);
             
-            % set omegas
-%             omega_scale = 1/1700;
-%             for i=1:12
-%                 omega = omegas(i);
-%                 set(obj.omegaVecs_{i}{1}, 'WData', 0.2*omega*omega_scale);
-%             end
+            if obj.showOmegaVecs_
+                %set omegas
+                omega_scale = 1/1700;
+                for i=1:12
+                    omega = omegas(i);
+                    set(obj.omegaVecs_{i}{1}, 'WData', 0.2*omega*omega_scale);
+                end
+            end
 
             % set desired orientation
 %             btf9 = eye(4);
